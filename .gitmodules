@@ -1,0 +1,9 @@
+[submodule "lattik-expression"]
+	path = lattik-expression
+	url = git@github.com:Eloquio/lattik-expression.git
+[submodule "lattik-stitch"]
+	path = lattik-stitch
+	url = git@github.com:Eloquio/lattik-stitch.git
+[submodule "lattik-studio"]
+	path = lattik-studio
+	url = git@github.com:Eloquio/lattik-studio.git
