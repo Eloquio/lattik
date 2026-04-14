@@ -6,9 +6,9 @@ Open-source data platform by [Eloquio](https://github.com/Eloquio). Lattik combi
 
 | Repository | Description | Language |
 |---|---|---|
-| [lattik-studio](lattik-studio) | Agentic analytics platform — chat-driven data pipelines, business questions, root cause analysis, and ML feature engineering | TypeScript (Next.js) |
-| [lattik-stitch](lattik-stitch) | Read-side engine for Lattik Tables — stitches N column families from S3 into a single logical Iceberg table, with Spark and Trino connectors | Rust, Kotlin, Java |
-| [lattik-expression](lattik-expression) | Expression language for parsing, type-checking, and emitting SQL expressions against a known schema | TypeScript |
+| [lattik-studio](https://github.com/Eloquio/lattik-studio) | Agentic analytics platform — chat-driven data pipelines, business questions, root cause analysis, and ML feature engineering | TypeScript (Next.js) |
+| [lattik-stitch](https://github.com/Eloquio/lattik-stitch) | Read-side engine for Lattik Tables — stitches N column families from S3 into a single logical Iceberg table, with Spark and Trino connectors | Rust, Kotlin, Java |
+| [lattik-expression](https://github.com/Eloquio/lattik-expression) | Expression language for parsing, type-checking, and emitting SQL expressions against a known schema | TypeScript |
 
 ## Getting started
 
