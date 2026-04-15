@@ -42,9 +42,10 @@ pnpm install
 pnpm env:bootstrap
 
 # Start the portless proxy (requires sudo for port 443)
-portless proxy start --tld dev
+sudo portless proxy start --tld dev
 
 # Bring up the full dev stack (kind cluster, Postgres, Gitea, Trino, MinIO, etc.)
+# First run takes a few minutes — needs to pull container images, so a fast network helps.
 pnpm dev:up
 
 # Start the dev server (serves at https://lattik-studio.dev)
