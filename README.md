@@ -26,14 +26,8 @@ Open-source data platform by [Eloquio](https://github.com/Eloquio). Lattik combi
 ```bash
 git clone --recurse-submodules https://github.com/Eloquio/lattik.git
 cd lattik
+git submodule foreach git checkout main
 ```
-
-If already cloned:
-
-```bash
-git submodule update --init --recursive
-```
-
 ### Setup
 
 All commands below run from the `lattik-studio/` directory:
