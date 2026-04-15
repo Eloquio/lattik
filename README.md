@@ -12,47 +12,63 @@ Open-source data platform by [Eloquio](https://github.com/Eloquio). Lattik combi
 
 ## Getting started
 
+### System requirements
+
+- macOS, Linux, or Windows (WSL2)
+- 12+ GB RAM recommended (8 GB minimum — the full stack runs ~10 services in a local Kubernetes cluster)
+- 20+ GB free disk space (Docker images, kind PVCs)
+
 ### Prerequisites
 
-- [Docker](https://docs.docker.com/get-docker/)
+- [Docker](https://docs.docker.com/get-docker/) (make sure Docker Desktop is running)
 - [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker)
 - [Node.js](https://nodejs.org/) 22+
 - [pnpm](https://pnpm.io/) 10+
 - [portless](https://github.com/nicolo-ribaudo/portless) (`npm install -g portless`)
 - [helm](https://helm.sh/) (for Spark Operator)
 
-### Clone
-
-```bash
-git clone --recurse-submodules https://github.com/Eloquio/lattik.git
-cd lattik
-git submodule foreach git checkout main
-```
 ### Setup
 
-All commands below run from the `lattik-studio/` directory:
-
 ```bash
-cd lattik-studio
+# Start the HTTPS proxy (requires sudo for port 443 — serves lattik-studio.dev)
+sudo portless proxy start --tld dev
+
+# Clone
+git clone --recurse-submodules https://github.com/Eloquio/lattik.git
+cd lattik/lattik-studio
 
 # Install dependencies
 pnpm install
 
-# Generate .env (prompts for your AI Gateway key, auto-generates all secrets)
-pnpm env:bootstrap
-
-# Start the portless proxy (requires sudo for port 443)
-sudo portless proxy start --tld dev
-
-# Bring up the full dev stack (kind cluster, Postgres, Gitea, Trino, MinIO, etc.)
-# First run takes a few minutes — needs to pull container images, so a fast network helps.
+# Start everything — preflight checks, environment setup, services, and dev server
 pnpm dev:up
-
-# Start the dev server (serves at https://lattik-studio.dev)
-pnpm dev
 ```
 
+`pnpm dev:up` runs through these phases automatically:
+
+1. **Preflight checks** — validates Docker, kind, helm, Node, pnpm, RAM, disk, and port availability
+2. **Environment bootstrap** — generates `apps/web/.env` (prompts for your AI Gateway key, auto-generates all secrets)
+3. **Required services** — creates the kind cluster, starts PostgreSQL, pushes the DB schema, and seeds data
+4. **Dev server** — starts the Next.js app at https://lattik-studio.dev
+5. **Background services** — builds images and starts Gitea, Trino, MinIO, Kafka, Spark, Airflow, etc. (progress logged to `.dev-services.log`)
+
+First run takes **15-20 minutes** (image builds + container pulls). Subsequent runs take ~2 minutes.
+
 Sign in with **admin / admin** — no Google OAuth setup required for local development.
+
+### Verify
+
+Check the status of all services at any time:
+
+```bash
+pnpm dev:status
+```
+
+### Teardown
+
+```bash
+pnpm dev:down   # Deletes the kind cluster — all data is wiped
+```
 
 ## License
 
